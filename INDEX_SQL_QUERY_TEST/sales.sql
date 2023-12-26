@@ -1,0 +1,14 @@
+CREATE TABLE sales (
+    sales_id INT,
+    sale_date DATE,
+    amount DECIMAL(10, 3),
+    PRIMARY KEY (sales_id)
+) PARTITION BY RANGE (sales_id);
+
+CREATE TABLE sales_p0 PARTITION OF sales FOR VALUES FROM (MINVALUE) TO (2000);
+CREATE TABLE sales_p1 PARTITION OF sales FOR VALUES FROM (2000) TO (2008);
+CREATE TABLE sales_p2 PARTITION OF sales FOR VALUES FROM (2008) TO (2018);
+CREATE TABLE sales_p3 PARTITION OF sales FOR VALUES FROM (2018) TO (MAXVALUE);
+
+
+INSERT INTO sales (sales_id, sale_date, amount) VALUES (4500, '2023-12-22', 54.99);
